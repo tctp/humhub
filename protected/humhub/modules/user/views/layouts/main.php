@@ -24,7 +24,7 @@ AppAsset::register($this);
         <?= $content; ?>
         <?php $this->endBody() ?>
 
-        <div class="text text-center powered">Powered by <a href="http://www.humhub.org" target="_blank">HumHub</a></div>
+
     </body>
 
 </html>
