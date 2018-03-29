@@ -694,10 +694,6 @@ use yii\helpers\Html;
                                                                         </span>
                                                                     <?php endif; ?>
 
-                                                                    <span style="text-decoration: none; color:<?= $soft2Color ?>;">
-                                                                        <?= FooterMenu::widget(['location' => FooterMenu::LOCATION_EMAIL]); ?>
-                                                                        Powered by <a href="http://www.humhub.org"  style="text-decoration: none; color: <?= $soft2Color ?>;">HumHub</a>
-                                                                    </span>
 
                                                                 </td>
 
