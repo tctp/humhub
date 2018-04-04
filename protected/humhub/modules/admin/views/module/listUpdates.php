@@ -33,9 +33,13 @@ use yii\helpers\Html;
                     <div class="module-controls">
 
                         <?php if (isset($module['latestCompatibleVersion']) && Yii::$app->moduleManager->hasModule($module['id'])) : ?>
-                            <?= Yii::t('AdminModule.views_module_listUpdates', 'Installed version:'); ?><?= Yii::$app->moduleManager->getModule($module['id'])->getVersion(); ?>
+                            <?= Yii::t('AdminModule.views_module_listUpdates', 'Installed version:'); ?><?= Yii::$app->moduleManager->getModule($module['id'])->getTctpForkVersion(); ?>
                             &middot; <?= Yii::t('AdminModule.views_module_listUpdates', 'Latest compatible Version:'); ?><?= $module['latestCompatibleVersion']; ?>
-                            &middot; <?= Html::a(Yii::t('AdminModule.views_module_listUpdates', 'Update'), ['update', 'moduleId' => $module['id']], ['style' => 'font-weight:bold', 'data-loader' => "modal", 'data-message' => Yii::t('AdminModule.views_module_listUpdates', 'Updating module...'), 'data-method' => 'POST']); ?>
+                            <?php if(Yii::$app->moduleManager->getModule($module['id'])->isTctpFork()) : ?>
+                                <?= Html::mailto('Solicitar actualización a soporte@tuclase.net', 'soporte@tuclase.net') ?>
+                            <?php else :?>
+                                &middot; <?= Html::a(Yii::t('AdminModule.views_module_listUpdates', 'Update'), ['update', 'moduleId' => $module['id']], ['style' => 'font-weight:bold', 'data-loader' => "modal", 'data-message' => Yii::t('AdminModule.views_module_listUpdates', 'Updating module...'), 'data-method' => 'POST']); ?>
+                            <?php endif; ?>
                             &middot; <?= Html::a(Yii::t('AdminModule.views_module_listOnline', 'More info'), $module['marketplaceUrl'], ['target' => '_blank']); ?>
                         <?php endif; ?>
 

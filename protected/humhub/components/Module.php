@@ -393,4 +393,34 @@ class Module extends \yii\base\Module
         return $activities;
     }
 
+    /**
+     * Indica si el módulo es un fork TCTP: módulo clone personalizado que se actualiza manualmente
+     *
+     */
+    public function isTctpFork()
+    {
+        $info = $this->getModuleInfo();
+        return isset($info['versionForkTctp']);
+    }
+
+    /**
+     * Retorna la versión del Fork TCTP: <version>.<versionForkTctp>
+     * <version> : Versión base, es el atributo versión en module.json
+     * <versionForkTctp>: Versión de la adaptación TCTP, es el atributo versionForkTctp en module.json
+     * Ejemplo: Si version = 1.1.3 y versionForkTctp = tuclase.01, se entregará:
+     *          1.1.3.tuclase.01
+     *
+     * @return string VersionBase.VersionTctpFork
+     */
+    public function getTctpForkVersion()
+    {
+        $baseVersion = $this->getVersion();
+        $info = $this->getModuleInfo();
+
+        if ($this->isTctpFork() && isset($info['versionForkTctp'])) {
+            return $baseVersion . "." . $info['versionForkTctp'];
+        }
+
+        return $baseVersion;
+    }
 }
