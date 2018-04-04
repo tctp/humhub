@@ -22,6 +22,9 @@ use yii\helpers\Url;
                             <?php if (Yii::$app->hasModule($module->id)) : ?>
                                 <span class="label label-info"><?= Yii::t('AdminModule.module_list', 'Activated'); ?></span>
                             <?php endif; ?>
+                            <?php if($module->isTctpFork()) : ?>
+                                <span class="label label-warning">TCTP-Fork</span>
+                            <?php endif; ?>
                         </small>
                     </h4>
 
@@ -29,7 +32,7 @@ use yii\helpers\Url;
 
                     <div class="module-controls">
 
-                        <?= Yii::t('AdminModule.module_list', 'Version:'); ?> <?= $module->getVersion(); ?>
+                        <?= Yii::t('AdminModule.module_list', 'Version:'); ?> <?= $module->getTctpForkVersion(); ?>
 
                         <?php if (Yii::$app->hasModule($module->id)) : ?>
                             <?php if ($module->getConfigUrl() != "") : ?>
