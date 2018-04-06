@@ -9,6 +9,7 @@ use yii\helpers\Url;
 use humhub\libs\Helpers;
 use humhub\widgets\LinkPager;
 use humhub\modules\space\widgets\FollowButton;
+use humhub\modules\space\widgets\MembershipButton;
 use humhub\modules\space\widgets\Image;
 use humhub\modules\directory\widgets\SpaceTagList;
 ?>
@@ -49,6 +50,13 @@ use humhub\modules\directory\widgets\SpaceTagList;
                             'followOptions' => ['class' => 'btn btn-primary btn-sm'],
                             'unfollowOptions' => ['class' => 'btn btn-info btn-sm']
                         ]);
+
+                        ?>                       
+                        <?=
+                            MembershipButton::widget([
+                                'space' => $space,
+                                'claseBoton' => 'btn-sm'
+                            ]);
                         ?>
                     </div>
 
