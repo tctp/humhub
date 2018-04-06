@@ -69,7 +69,9 @@ class MailTarget extends BaseTarget
                         ], $notification->getViewParams());
 
 
-        $from = $notification->originator ? Html::encode($notification->originator->displayName) . ' (' . Html::encode(Yii::$app->name) . ')' : Yii::$app->settings->get('mailer.systemEmailName');
+        // $from = $notification->originator ? Html::encode($notification->originator->displayName) . ' (' . Html::encode(Yii::$app->name) . ')' : Yii::$app->settings->get('mailer.systemEmailName');
+        //from en los correos: Forzado solo al 'Nombre del remitente del correo electrónico' configurado en el sistema
+        $from = Yii::$app->settings->get('mailer.systemEmailName');
 
         $mail = Yii::$app->mailer->compose($this->view, $viewParams)
                 ->setFrom([Yii::$app->settings->get('mailer.systemEmailAddress') => $from])
