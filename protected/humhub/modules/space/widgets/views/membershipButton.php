@@ -7,9 +7,9 @@ use yii\helpers\Html;
 if ($membership === null) {
     if ($space->canJoin()) {
         if ($space->join_policy == Space::JOIN_POLICY_APPLICATION) {
-            echo Html::a(Yii::t('SpaceModule.widgets_views_membershipButton', 'Request membership'), $space->createUrl('/space/membership/request-membership-form'), array('id' => 'requestMembershipButton', 'class' => 'btn btn-primary', 'data-target' => '#globalModal'));
+            echo Html::a(Yii::t('SpaceModule.widgets_views_membershipButton', 'Request membership'), $space->createUrl('/space/membership/request-membership-form'), array('id' => 'requestMembershipButton', 'class' => 'btn btn-primary'  . ' ' . $claseBoton, 'data-target' => '#globalModal'));
         } else {
-            echo Html::a(Yii::t('SpaceModule.widgets_views_membershipButton', 'Become member'), $space->createUrl('/space/membership/request-membership'), array('id' => 'requestMembershipButton', 'class' => 'btn btn-primary', 'data-method' => 'POST'));
+            echo Html::a(Yii::t('SpaceModule.widgets_views_membershipButton', 'Become member'), $space->createUrl('/space/membership/request-membership'), array('id' => 'requestMembershipButton', 'class' => 'btn btn-primary'  . ' ' . $claseBoton, 'data-method' => 'POST'));
         }
     }
 } elseif ($membership->status == Membership::STATUS_INVITED) {
@@ -21,10 +21,10 @@ if ($membership === null) {
             <span class="sr-only">Toggle Dropdown</span>
         </button>
         <ul class="dropdown-menu">
-            <li><?php echo Html::a(Yii::t('SpaceModule.widgets_views_membershipButton', 'Deny Invite'), $space->createUrl('/space/membership/revoke-membership'), array('data-method' => 'POST')); ?></li>
+            <li><?php echo Html::a(Yii::t('SpaceModule.widgets_views_membershipButton', 'Deny Invite'), $space->createUrl('/space/membership/revoke-membership'), array('data-method' => 'POST', 'class' => 'btn btn-primary'  . ' ' . $claseBoton)); ?></li>
         </ul>
     </div>
     <?php
 } elseif ($membership->status == Membership::STATUS_APPLICANT) {
-    echo Html::a(Yii::t('SpaceModule.widgets_views_membershipButton', 'Cancel pending membership application'), $space->createUrl('/space/membership/revoke-membership'), array('data-method' => 'POST', 'class' => 'btn btn-primary'));
+    echo Html::a(Yii::t('SpaceModule.widgets_views_membershipButton', 'Cancel pending membership application'), $space->createUrl('/space/membership/revoke-membership'), array('data-method' => 'POST', 'class' => 'btn btn-primary'  . ' ' . $claseBoton));
 }

@@ -23,6 +23,7 @@ class MembershipButton extends Widget
      * @var \humhub\modules\space\models\Space
      */
     public $space;
+    public $claseBoton = '';
 
     /**
      * @inheritdoc
@@ -33,7 +34,8 @@ class MembershipButton extends Widget
 
         return $this->render('membershipButton', array(
                     'space' => $this->space,
-                    'membership' => $membership
+                    'membership' => $membership,
+                    'claseBoton' => $this->claseBoton
         ));
     }
 
