@@ -20,7 +20,7 @@ use yii\helpers\Html;
 <?php endif; ?>
 
 <p>
-    <?= Yii::t('AdminModule.views_about_index', 'Currently installed version: %currentVersion%', ['%currentVersion%' => '<strong>' . Yii::$app->version . '</strong>']); ?><br>
+    <?= Yii::t('AdminModule.views_about_index', 'Currently installed version: %currentVersion%', ['%currentVersion%' => '<strong>' . Yii::$app->version . '.tuclase.01'. '</strong>']); ?><br>
 </p>
 <br>
 
