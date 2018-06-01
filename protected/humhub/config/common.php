@@ -12,7 +12,7 @@ Yii::setAlias('@config', '@app/config');
 
 $config = [
     'name' => 'HumHub',
-    'version' => '1.2.4',
+    'version' => '1.2.7',
     'basePath' => dirname(__DIR__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR,
     'bootstrap' => ['log', 'humhub\components\bootstrap\ModuleAutoLoader', 'queue'],
     'sourceLanguage' => 'en',
@@ -165,6 +165,7 @@ $config = [
             'ja' => '日本語',
             'hu' => 'Magyar',
             'nb_no' => 'Nnorsk bokmål',
+            'nn_no' => 'Nynorsk',
             'zh_cn' => '中文(简体)',
             'zh_tw' => '中文(台灣)',
             'an' => 'Aragonés',
@@ -183,6 +184,8 @@ $config = [
             'lt' => 'lietuvių kalba',
             'ht' => 'Kreyòl ayisyen',
             'lv' => 'Latvijas',
+            'sl' => 'Slovenščina',
+            'hr' => 'Hrvatski',
         ],
         'ldap' => [
             // LDAP date field formats

@@ -2,6 +2,7 @@
 
 namespace tests\codeception\_support;
 
+use humhub\modules\friendship\models\Friendship;
 use Yii;
 use yii\base\Event;
 use yii\db\ActiveRecord;
@@ -135,18 +136,57 @@ class HumHubDbTestCase extends Test
         ];
     }
 
-    public function assertHasNotification($class, ActiveRecord $source, $originator_id = null, $msg = null)
+    public function assertHasNotification($class, ActiveRecord $source, $originator_id = null, $target_id = null, $msg = '')
     {
-        $notificationQuery = Notification::find(['class' => $class, 'source_class' => $source->className(), 'source_pk' => $source->getPrimaryKey()]);
+        if(is_string($target_id)) {
+            $msg = $target_id;
+            $target_id = null;
+        }
+        
+        $notificationQuery = Notification::find()->where(['class' => $class, 'source_class' => $source->className(), 'source_pk' => $source->getPrimaryKey()]);
 
         if ($originator_id != null) {
             $notificationQuery->andWhere(['originator_user_id' => $originator_id]);
         }
 
+        if($target_id != null) {
+            $notificationQuery->andWhere(['user_id' => $target_id]);
+        }
+
         $this->assertNotEmpty($notificationQuery->all(), $msg);
     }
 
-    public function assertHasActivity($class, ActiveRecord $source, $msg = null)
+    public function assertEqualsNotificationCount($count, $class, ActiveRecord $source, $originator_id = null, $target_id = null, $msg = '')
+    {
+        $notificationQuery = Notification::find()->where(['class' => $class, 'source_class' => $source->className(), 'source_pk' => $source->getPrimaryKey()]);
+
+        if ($originator_id != null) {
+            $notificationQuery->andWhere(['originator_user_id' => $originator_id]);
+        }
+
+        if($target_id != null) {
+            $notificationQuery->andWhere(['user_id' => $target_id]);
+        }
+
+        $this->assertEquals($count, $notificationQuery->count(), $msg);
+    }
+
+    public function assertHasNoNotification($class, ActiveRecord $source, $originator_id = null, $target_id = null, $msg = '')
+    {
+        $notificationQuery = Notification::find()->where(['class' => $class, 'source_class' => $source->className(), 'source_pk' => $source->getPrimaryKey()]);
+
+        if ($originator_id != null) {
+            $notificationQuery->andWhere(['originator_user_id' => $originator_id]);
+        }
+
+        if($target_id != null) {
+            $notificationQuery->andWhere(['user_id' => $target_id]);
+        }
+
+        $this->assertEmpty($notificationQuery->all(), $msg);
+    }
+
+    public function assertHasActivity($class, ActiveRecord $source, $msg = '')
     {
         $activity = Activity::findOne(['class' => $class, 'object_model' => $source->className(), 'object_id' => $source->getPrimaryKey()]);
         $this->assertNotNull($activity, $msg);
@@ -170,6 +210,37 @@ class HumHubDbTestCase extends Test
         } else {
             Yii::$app->getModule('user')->settings->set('auth.allowGuestAccess', 0);
         }
+    }
+
+    public function setProfileField($field, $value, $user)
+    {
+        if(is_int($user)) {
+            $user = User::findOne($user);
+        } else if (is_string($user)) {
+            $user = User::findOne(['username' => $user]);
+        } else if (!$user) {
+            $user = Yii::$app->user->identity;
+        }
+
+        $user->profile->setAttributes([$field => $value]);
+        $user->profile->save();
+    }
+
+    public function becomeFriendWith($username)
+    {
+        $user = User::findOne(['username' => $username]);
+        Friendship::add($user, Yii::$app->user->identity);
+        Friendship::add(Yii::$app->user->identity, $user);
+    }
+
+    public function follow($username)
+    {
+        User::findOne(['username' => $username])->follow();
+    }
+
+    public function enableFriendships($enable = true)
+    {
+        Yii::$app->getModule('friendship')->settings->set('enable', $enable);
     }
 
     public function setGroupPermission($groupId, $permission, $state = BasePermission::STATE_ALLOW)
