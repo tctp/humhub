@@ -7,4 +7,3 @@
 <?= Yii::t('base', 'Unsubscribe') ?>: <?= $url ?>
 <?php endif; ?>
 
-Powered by HumHub (http://www.humhub.org)

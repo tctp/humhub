@@ -22,5 +22,4 @@ $i = 0;
         <?php endforeach; ?>
         <br/><br/>
     <?php endif; ?>
-    Powered by <?= Html::a('HumHub', 'https://humhub.org'); ?>&nbsp;
 </div>
