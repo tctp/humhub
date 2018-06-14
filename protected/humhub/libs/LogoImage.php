@@ -23,7 +23,7 @@ class LogoImage
     /**
      * @var Integer height of the image
      */
-    protected $height = 40;
+    protected $height = 70;
 
     /**
      * @var String folder name inside the uploads directory
