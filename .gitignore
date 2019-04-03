@@ -2,6 +2,8 @@ assets/*
 !assets/.gitignore
 
 protected/runtime/*
+protected/config/*
+
 !protected/runtime/.gitignore
 
 node_modules
@@ -35,3 +37,4 @@ favicon.ico
 /.buildpath
 /.project
 /protected/vendor/
+protected/config/web.php
